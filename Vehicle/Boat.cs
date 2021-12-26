@@ -9,5 +9,9 @@
 
 
         public uint Length { get; set; }
+        public override string ToString()
+        {
+            return $"{base.ToString()} Lenght: {Length}";
+        }
     }
 }

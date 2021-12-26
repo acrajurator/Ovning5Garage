@@ -7,5 +7,9 @@
             Fuel = fuel;
         }
         public string Fuel { get; set; }
+        public override string ToString()
+        {
+            return $"{base.ToString()} Fuel type: {Fuel}";
+        }
     }
 }

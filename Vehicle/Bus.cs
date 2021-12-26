@@ -7,5 +7,10 @@
             Seats = seats;
         }
         public uint Seats { get; set; }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} Number of seats: {Seats}";
+        }
     }
 }

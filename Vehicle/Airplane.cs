@@ -9,5 +9,9 @@
 
         public uint Engines { get; set; }
 
+        public override string ToString()
+        {
+            return $"{base.ToString()} Number of engines: {Engines}";
+        }
     }
 }

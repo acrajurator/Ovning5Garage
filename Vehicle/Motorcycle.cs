@@ -7,5 +7,9 @@
             Volume = volume;
         }
         public uint Volume { get; set; }
+        public override string ToString()
+        {
+            return $"{base.ToString()} Engine volume: {Volume}";
+        }
     }
 }
