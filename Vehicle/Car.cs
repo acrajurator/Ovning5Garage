@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GarageSpace.Vehicle
+﻿namespace GarageSpace.Vehicle
 {
-    internal class Car : IVehicle
+    internal class Car : Vehicle, IVehicle
     {
-        public Car(string numPlate, string color, uint tires, string fuel)
+        public Car(string numPlate, string color, uint tires, string fuel) : base(numPlate, color, tires)
         {
-            NumPlate = numPlate;
-            Color = color;
-            Tires = tires;
             Fuel = fuel;
         }
-
-
-        public string Color { get; set; }
-        public string NumPlate { get; set; }
-        public uint Tires { get; set; }
         public string Fuel { get; set; }
     }
 }
