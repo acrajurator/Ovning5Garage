@@ -2,6 +2,7 @@
 {
     public interface IHandler
     {
+
         void PrintVehicles();
         void PrintVehicles(VehicleType value);
         void CreateGarage(uint size);
@@ -21,6 +22,6 @@
         bool AddAirplane(string numPlate, string color, uint tires, uint engines);
         bool AvailableSpots();
         bool RemoveVehicle(uint parkingSpot);
-        void PrintNumPlate(string numberPlate);
+        bool IsDuplicateNumPlate(string numberPlate);
     }
 }

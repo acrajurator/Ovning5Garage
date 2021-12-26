@@ -11,7 +11,7 @@ namespace GarageSpace
             vehicles = new IVehicle[size];
         }
 
-        internal int AvailableSpots()
+        public int AvailableSpots()
         {
             int x = 0;
             if (vehicles != null)
@@ -25,7 +25,7 @@ namespace GarageSpace
             return x;
         }
 
-        internal int FirstAvailableSpot()
+        public int FirstAvailableSpot()
         {
             if (vehicles != null)
             {
@@ -38,9 +38,10 @@ namespace GarageSpace
             return 0;
         }
 
-        internal void AddVehicle(T vehicle, int x)
+        public void AddVehicle(T vehicle, int x)
         {
-            vehicles[x-1] = vehicle;
+            if (x > 1 && vehicles[x - 1] == null)
+                 vehicles[x-1] = vehicle;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -54,7 +55,7 @@ namespace GarageSpace
             return GetEnumerator(); 
         }
 
-        internal bool RemoveVehicle(uint parkingSpot)
+        public bool RemoveVehicle(uint parkingSpot)
         {
             if (parkingSpot > 0 && parkingSpot < vehicles.Length && vehicles[parkingSpot-1] != null)
             {

@@ -4,7 +4,9 @@ using GarageSpace;
 
 public class GarageMenu
 {
-    IHandler handler = new GarageHandler();
+
+    static IUI ui = new ConsoleUI();
+    IHandler handler = new GarageHandler(ui);
     public GarageMenu()
     {
     }
@@ -20,16 +22,14 @@ public class GarageMenu
 
     private void MainMenu()
     {
-       // Console.Clear();
-
-        Console.WriteLine("Main Menu");
-        Console.WriteLine("1. Print all parked Vehicles");
-        Console.WriteLine("2. Print a specific vehicle type");
-        Console.WriteLine("3. Add / Remove Vehicle");
-        Console.WriteLine("4. Search vehicle based on numberplate");
-        Console.WriteLine("5. Search vehicle based on properties.");
-        Console.WriteLine("6. Quit Program");
-        uint option = InputUint(6);
+        ui.PrintString("Main Menu");
+        ui.PrintString("1. Print all parked Vehicles");
+        ui.PrintString("2. Print a specific vehicle type");
+        ui.PrintString("3. Add / Remove Vehicle");
+        ui.PrintString("4. Search vehicle based on number plate");
+        ui.PrintString("5. Search vehicle based on properties.");
+        ui.PrintString("6. Quit Program");
+        uint option = Util.AskForUInt("# of your choice: ", ui); 
 
         switch (option)
         {
@@ -54,7 +54,7 @@ public class GarageMenu
                 MainMenu();
                 break;
             case 6:
-                Console.WriteLine("Goodbye!");
+                ui.PrintString("Goodbye!");
                 Environment.Exit(0);
                 break;
             default:
@@ -66,18 +66,18 @@ public class GarageMenu
 
     private void PropertyMenu()
     {
-        Console.WriteLine("What properties do you want to search by?");
+        ui.PrintString("What properties do you want to search by?");
 
-        Console.WriteLine("1. Number plate");
-        Console.WriteLine("2. Number plate + Color");
-        Console.WriteLine("3. Number plate + Amount of Tires");
-        Console.WriteLine("4. Number plate + Amount of Tires + Color");
-        Console.WriteLine("5. Color");
-        Console.WriteLine("6. Color + Amount of Tires");
-        Console.WriteLine("7. Amount of Tires");
-        Console.WriteLine("8. Go back");
+        ui.PrintString("1. Number plate");
+        ui.PrintString("2. Number plate + Color");
+        ui.PrintString("3. Number plate + Amount of Tires");
+        ui.PrintString("4. Number plate + Amount of Tires + Color");
+        ui.PrintString("5. Color");
+        ui.PrintString("6. Color + Amount of Tires");
+        ui.PrintString("7. Amount of Tires");
+        ui.PrintString("8. Go back");
 
-        uint option = InputUint(8);
+        uint option = Util.AskForUInt("# of your choice: ",ui);
         string numPlate;
         string color;
         uint tires;
@@ -85,49 +85,36 @@ public class GarageMenu
         {
             case 1:
 
-                Console.WriteLine("Write the number plate");
-                numPlate = InputString();
+                numPlate = Util.AskForString("What Number Plate?", ui); 
                 handler.VehiclesByNrPlate(numPlate);
                 break;
             case 2:
-                Console.WriteLine("Write the number plate");
-                numPlate = InputString();
-
-                Console.WriteLine("Write the color");
-                color = InputString();
+                numPlate = Util.AskForString("What Number Plate?", ui); 
+                color = Util.AskForString("What Color?", ui);
                 handler.VehiclesByNrPlateCol(numPlate, color);
                 break;
             case 3:
-                Console.WriteLine("Write the number plate");
-                numPlate = InputString();
-                Console.WriteLine("Write the number of tires");
-                tires = InputUint();
+                numPlate = Util.AskForString("What Number Plate?", ui); 
+                tires = Util.AskForUInt("Number of tires: ", ui);
                 handler.VehiclesByNrPlateTir(numPlate, tires);
                 break;
             case 4:
-                Console.WriteLine("Write the number plate");
-                numPlate = InputString();
-                Console.WriteLine("Write the color");
-                color = InputString();
-                Console.WriteLine("Write the number of tires");
-                tires = InputUint();
-                handler.VehiclesByNrPlateColTir(numPlate, color, tires);;
+                numPlate = Util.AskForString("What Number Plate?", ui); 
+                color = Util.AskForString("What Color?", ui);
+                tires = Util.AskForUInt("Number of tires: ", ui);
+                handler.VehiclesByNrPlateColTir(numPlate, color, tires); 
                 break;
             case 5:
-                Console.WriteLine("Write the color");
-                color = InputString();
+                color = Util.AskForString("What Color?", ui);
                 handler.VehiclesByColor(color);
                 break;
             case 6:
-                Console.WriteLine("Write the color");
-                color = InputString();
-                Console.WriteLine("Write the number of tires");
-                tires = InputUint();
+                color = Util.AskForString("What Color?", ui);
+                tires = Util.AskForUInt("Number of tires: ", ui);
                 handler.VehiclesByColorTires(color, tires);
                 break;
             case 7:
-                Console.WriteLine("Write the number of tires");
-                tires = InputUint();
+                tires = Util.AskForUInt("Number of tires: ", ui); 
                 handler.VehiclesByTires(tires);
                 break;
 
@@ -142,25 +129,19 @@ public class GarageMenu
 
     private void NumberPlateMenu()
     {
-        Console.WriteLine("Whats the Number plate of the vehicle you want to print?");
-        var numberPlate = InputString();
-            numberPlate.ToUpper();
-        //toDo Search for numberplate
-        handler.PrintNumPlate(numberPlate);
-
-            Console.WriteLine("You looked for a number plate");
+        var numPlate = Util.AskForString("What Number Plate?", ui);
+        handler.VehiclesByNrPlate(numPlate);
 
         MainMenu();
     }
 
     private void AddRemoveMenu()
     {
-        //Console.Clear();
-        Console.WriteLine("Do you want to remove or add a vehicle?");
-        Console.WriteLine("1. Add");
-        Console.WriteLine("2. Remove");
-        Console.WriteLine("3. Go back");
-        uint option = InputUint(3);
+        ui.PrintString("Do you want to remove or add a vehicle?");
+        ui.PrintString("1. Add");
+        ui.PrintString("2. Remove");
+        ui.PrintString("3. Go back");
+        uint option = Util.AskForUInt("# of your choice: ", ui);
         switch (option)
         {
             case 1:
@@ -179,13 +160,12 @@ public class GarageMenu
 
     private void RemoveVehicle()
     {
-        Console.WriteLine("Which parking spot do you want to remove a vehicle from?");
-        uint option = InputUint();
+        uint option = Util.AskForUInt("Which parking spot do you want to remove a vehicle from?", ui); 
         bool success = handler.RemoveVehicle(option);
         if (success)
-            Console.WriteLine("You Removed a vehicle!");
+            ui.PrintString("You Removed a vehicle!");
         else
-            Console.WriteLine("There was no vehicle in that parking spot!");
+            ui.PrintString("There was no vehicle in that parking spot!");
 
         AddRemoveMenu();
     }
@@ -194,16 +174,18 @@ public class GarageMenu
     {
         if (!handler.AvailableSpots())
         {
-            Console.WriteLine("There are no parking spots available");   
+            ui.PrintString("There are no parking spots available");
+            MainMenu();
+
         }
-        Console.WriteLine("What type of vehicle do you want to add?");
-        Console.WriteLine("1. Airplane");
-        Console.WriteLine("2. Motorcycle");
-        Console.WriteLine("3. Car");
-        Console.WriteLine("4. Bus");
-        Console.WriteLine("5. Boat");
-        Console.WriteLine("6. Go back");
-        uint option = InputUint(6);
+        ui.PrintString("What type of vehicle do you want to add?");
+        ui.PrintString("1. Airplane");
+        ui.PrintString("2. Motorcycle");
+        ui.PrintString("3. Car");
+        ui.PrintString("4. Bus");
+        ui.PrintString("5. Boat");
+        ui.PrintString("6. Go back");
+        uint option = Util.AskForUInt("# of your choice: ", ui); 
         switch (option)
         {
             case 1:
@@ -232,102 +214,81 @@ public class GarageMenu
 
     private void AddBoat()
     {
-        Console.WriteLine("What number plate?");
-        string numPlate = InputString().ToUpper();
-        Console.WriteLine("What Color?");
-        string color = InputString().ToUpper();
-        Console.WriteLine("How many tires?");
-        uint tires = InputUint();
-        Console.WriteLine("How long is it?");
-        uint lenght = InputUint();
-         bool success = handler.AddBoat(numPlate, color, tires, lenght);
+        string numPlate = Util.AskForString("What number plate?", ui); ;
+        string color = Util.AskForString("What Color?", ui);
+        uint tires = Util.AskForUInt("How many tires?", ui);
+        uint length = Util.AskForUInt("How long is it?", ui);
+        bool success = handler.AddBoat(numPlate, color, tires, length);
 
         if (success)
-            Console.WriteLine("You added a vehicle!");
+            ui.PrintString("You added a vehicle!");
         else
-            Console.WriteLine("Parking is full. Couldn't add your vehicle!");
+            ui.PrintString("Number plate is already taken. Couldn't add your vehicle!");
     }
 
     private void AddBus()
     {
-        Console.WriteLine("What number plate?");
-        string numPlate = InputString().ToUpper();
-        Console.WriteLine("What Color?");
-        string color = InputString().ToUpper();
-        Console.WriteLine("How many tires?");
-        uint tires = InputUint();
-        Console.WriteLine("Number of seats?");
-        uint seats = InputUint();
+        string numPlate = Util.AskForString("What number plate?", ui); ;
+        string color = Util.AskForString("What Color?", ui);
+        uint tires = Util.AskForUInt("How many tires?", ui);
+        uint seats = Util.AskForUInt("Number of seats?", ui);
         bool success = handler.AddBus(numPlate, color, tires, seats);
         if (success)
-            Console.WriteLine("You added a vehicle!");
+            ui.PrintString("You added a vehicle!");
         else
-            Console.WriteLine("Parking is full. Couldn't add you vehicle!");
+            ui.PrintString("Number plate is already taken. Couldn't add your vehicle!");
     }
 
     private void AddCar()
     {
-        Console.WriteLine("What number plate?");
-        string numPlate = InputString().ToUpper();
-        Console.WriteLine("What Color?");
-        string color = InputString().ToUpper();
-        Console.WriteLine("How many tires?");
-        uint tires = InputUint();
-        Console.WriteLine("What Fuel type?");
-        string fuel = InputString().ToUpper();
+        string numPlate = Util.AskForString("What number plate?", ui);
+        string color = Util.AskForString("What Color?", ui);
+        uint tires = Util.AskForUInt("How many tires?", ui);
+        string fuel = Util.AskForString("What Fuel Type?", ui);
         bool success = handler.AddCar(numPlate, color, tires, fuel);
         if (success)
-            Console.WriteLine("You added a vehicle!");
+            ui.PrintString("You added a vehicle!");
         else
-            Console.WriteLine("Parking is full. Couldn't add you vehicle!");
+            ui.PrintString("Number plate is already taken. Couldn't add your vehicle!");
     }
 
     private void AddMotorcycle()
     {
-        Console.WriteLine("What number plate?");
-        string numPlate = InputString().ToUpper();
-        Console.WriteLine("What Color?");
-        string color = InputString().ToUpper();
-        Console.WriteLine("How many tires?");
-        uint tires = InputUint();
-        Console.WriteLine("Cylinder volume?");
-        uint volume = InputUint();
+        string numPlate = Util.AskForString("What number plate?", ui); ;
+        string color = Util.AskForString("What Color?", ui);
+        uint tires = Util.AskForUInt("How many tires?", ui);
+        uint volume = Util.AskForUInt("Cylinder volume?", ui);
         bool success = handler.AddMotorcycle(numPlate, color, tires, volume);
         if (success)
-            Console.WriteLine("You added a vehicle!");
+            ui.PrintString("You added a vehicle!");
         else
-            Console.WriteLine("Parking is full. Couldn't add you vehicle!");
+            ui.PrintString("Number plate is already taken. Couldn't add your vehicle!");
     }
 
     private void AddAirplane()
     {
-        Console.WriteLine("What number plate?");
-        string numPlate = InputString().ToUpper();
-        Console.WriteLine("What Color?");
-        string color = InputString().ToUpper();
-        Console.WriteLine("How many tires?");
-        uint tires = InputUint();
-        Console.WriteLine("How many engines?");
-        uint engines = InputUint();
+        string numPlate = Util.AskForString("What number plate?", ui); ;
+        string color = Util.AskForString("What Color?", ui);
+        uint tires = Util.AskForUInt("How many tires?", ui);
+        uint engines = Util.AskForUInt("How many engines?", ui); 
         bool success = handler.AddAirplane(numPlate, color, tires, engines);
         if (success)
-            Console.WriteLine("You added a vehicle!");
+            ui.PrintString("You added a vehicle!");
         else
-            Console.WriteLine("Parking is full. Couldn't add you vehicle!");
+            ui.PrintString("Number plate is already taken. Couldn't add your vehicle!");
 
     }
 
     private void PrintSpecificMenu()
     {
-        //Console.Clear();
-        Console.WriteLine("Which type of vehicles do you want to print?");
-        Console.WriteLine("1. Airplanes");
-        Console.WriteLine("2. Motorcycles");
-        Console.WriteLine("3. Cars");
-        Console.WriteLine("4. Bus");
-        Console.WriteLine("5. Boats");
-        Console.WriteLine("6. Go back");
-        uint option = InputUint(6);
+        ui.PrintString("Which type of vehicles do you want to print?");
+        ui.PrintString("1. Airplanes");
+        ui.PrintString("2. Motorcycles");
+        ui.PrintString("3. Cars");
+        ui.PrintString("4. Bus");
+        ui.PrintString("5. Boats");
+        ui.PrintString("6. Go back");
+        uint option = Util.AskForUInt("#of your choice:", ui); ;
 
         switch (option)
         {
@@ -357,22 +318,21 @@ public class GarageMenu
 
     private void OptionalFillGarage()
     {
-        //Console.Clear();
-        Console.WriteLine("Do you want to auto add vehicles to the garage?");
-        Console.WriteLine("1. Auto add vehicles.");
-        Console.WriteLine("2. Do not auto add vehicles");
-        Console.WriteLine("3. Quit program");
-        uint option = InputUint(3);
+        ui.PrintString("Do you want to auto add vehicles to the garage?");
+        ui.PrintString("1. Auto add vehicles.");
+        ui.PrintString("2. Do not auto add vehicles");
+        ui.PrintString("3. Quit program");
+        uint option = Util.AskForUInt("Number of your choice?", ui); ;
 
         switch (option)
         {
             case 1:
                 //toDo fill garage;
-                 handler.AddAirplane("abc123", "yellow", 3, 4);
-                 handler.AddMotorcycle("cde452", "white", 2, 10);
-                 handler.AddCar("ret521", "red", 4, "normal");
+                handler.AddAirplane("abc123", "yellow", 3, 4);
+                handler.AddMotorcycle("cde452", "white", 2, 10);
+                handler.AddCar("ret521", "red", 4, "normal");
                 handler.AddCar("bla111", "pink", 4, "special");
-                 handler.AddBus("dra333", "yellow", 8, 22);
+                handler.AddBus("dra333", "yellow", 8, 22);
                 handler.AddBoat("pizza", "red", 0, 10);
 
                 break;
@@ -380,7 +340,7 @@ public class GarageMenu
                 //Dont add;
                 break;
             case 3:
-                Console.WriteLine("Goodbye!");
+                ui.PrintString("Goodbye!");
                 Environment.Exit(0);
                 break;
             default:
@@ -391,43 +351,13 @@ public class GarageMenu
     private void StartMenu()
     {
 
-        Console.Clear();
-        Console.WriteLine("Welcome to the garage");
-        Console.WriteLine("How many parking spots do you want your new garage to have?");
-        uint size = InputUint();
+        ui.PrintString("Welcome to the garage");
+        uint size = Util.AskForUInt("Amount of parking spots in your new garage?", ui); ;
 
         handler.CreateGarage(size);
-        Console.Clear();
-        Console.WriteLine("Your garage was created with " + size + " parking spots!");
+        ui.PrintString("Your garage was created with " + size + " parking spots!");
 
     }
 
-
-    private uint InputUint(uint options = 4294967295)
-    {
-        uint choice = 0;
-        uint.TryParse(Console.ReadLine(), out choice);
-
-        while (choice > options || choice < 1)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Please try again");
-            uint.TryParse(Console.ReadLine(), out choice);
-        }
-        return choice;
-
-    }
-    private string InputString()
-    {
-        var input = Console.ReadLine();
-        if (input == null)
-        {
-            Console.WriteLine("Please try again");
-            return InputString();
-        }
-        else
-            return input;
-
-    }
 
 }

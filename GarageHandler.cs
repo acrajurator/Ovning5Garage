@@ -2,19 +2,26 @@
 
 namespace GarageSpace
 {
-    internal class GarageHandler : IHandler
+    public class GarageHandler : IHandler
     {
         Garage<IVehicle>? garage;
+        IUI ui;
 
+        public GarageHandler(IUI ui)
+        {
+            this.ui = ui;
+        }
         public void CreateGarage(uint size)
         {
             garage = new Garage<IVehicle>(size);
+
+            
         }
         public bool AddAirplane(string numPlate, string color, uint tires, uint engines)
         {
 
             Airplane airplane = new Airplane(numPlate.ToUpper(), color.ToUpper(), tires, engines);
-            if (garage != null && garage.AvailableSpots() > 0)
+            if (garage != null && garage.AvailableSpots() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
             {
 
 
@@ -30,7 +37,7 @@ namespace GarageSpace
         public bool AddBus(string numPlate, string color, uint tires, uint seats)
         {
             Bus bus = new Bus(numPlate.ToUpper(), color.ToUpper(), tires, seats);
-            if (garage != null && garage.AvailableSpots() > 0)
+            if (garage != null && garage.AvailableSpots() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
             {
 
 
@@ -50,7 +57,7 @@ namespace GarageSpace
         {
 
             Boat boat = new Boat(numPlate.ToUpper(), color.ToUpper(), tires, lenght);
-            if (garage != null && garage.AvailableSpots() > 0)
+            if (garage != null && garage.AvailableSpots() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
             {
 
 
@@ -67,7 +74,7 @@ namespace GarageSpace
         public bool AddCar(string numPlate, string color, uint tires, string fuel)
         {
             Car car = new Car(numPlate.ToUpper(), color.ToUpper(), tires, fuel.ToUpper());
-            if (garage != null && garage.AvailableSpots() > 0)
+            if (garage != null && garage.AvailableSpots() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
             {
 
 
@@ -84,10 +91,11 @@ namespace GarageSpace
 
         public bool AddMotorcycle(string numPlate, string color, uint tires, uint volume)
         {
-            Motorcycle motorcycle = new Motorcycle(numPlate.ToUpper(), color.ToUpper(), tires, volume);
-            if (garage != null && garage.AvailableSpots() > 0)
-            {
 
+            Motorcycle motorcycle = new Motorcycle(numPlate.ToUpper(), color.ToUpper(), tires, volume);
+
+            if (garage != null && garage.AvailableSpots() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
+            {
 
                 int x = garage.FirstAvailableSpot();
                 if (x > 0)
@@ -110,7 +118,7 @@ namespace GarageSpace
                 {
                     x++;
                     if (var != null)
-                        Console.WriteLine(var.ToString());
+                        ui.PrintString(var.ToString());
                 }
             }
 
@@ -127,23 +135,23 @@ namespace GarageSpace
                     {
                         case VehicleType.Car:
                             if (var is Car)
-                                Console.WriteLine(var.ToString());
+                                ui.PrintString(var.ToString());
                             break;
                         case VehicleType.Airplane:
                             if (var is Airplane)
-                                Console.WriteLine(var.ToString());
+                                ui.PrintString(var.ToString());
                             break;
                         case VehicleType.Boat:
                             if (var is Boat)
-                                Console.WriteLine(var.ToString());
+                                ui.PrintString(var.ToString());
                             break;
                         case VehicleType.Bus:
                             if (var is Bus)
-                                Console.WriteLine(var.ToString());
+                                ui.PrintString(var.ToString());
                             break;
                         case VehicleType.Motorcycle:
                             if (var is Motorcycle)
-                                Console.WriteLine(var.ToString());
+                                ui.PrintString(var.ToString());
                             break;
                         default:
                             throw new NotImplementedException();
@@ -160,7 +168,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.Color.Equals(color.ToUpper())).ToList().ForEach(x =>
                 {
-                    Console.WriteLine(x.ToString());
+                    ui.PrintString(x.ToString());
                 });
             }
         }
@@ -171,7 +179,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.Color.Equals(color.ToUpper()) && x.Tires.Equals(tires)).ToList().ForEach(x =>
                 {
-                    Console.WriteLine(x.ToString());
+                    ui.PrintString(x.ToString());
                 });
             }
         }
@@ -182,7 +190,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.NumPlate.Equals(numPlate.ToUpper())).ToList().ForEach(x =>
             {
-                Console.WriteLine(x.ToString());
+                ui.PrintString(x.ToString());
             });
             }
         }
@@ -193,7 +201,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.NumPlate.Equals(numPlate.ToUpper()) && x.Color.Equals(color.ToUpper())).ToList().ForEach(x =>
                 {
-                    Console.WriteLine(x.ToString());
+                    ui.PrintString(x.ToString());
                 });
             }
         }
@@ -204,7 +212,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.NumPlate.Equals(numPlate.ToUpper()) && x.Color.Equals(color.ToUpper()) && x.Tires.Equals(tires)).ToList().ForEach(x =>
         {
-            Console.WriteLine(x.ToString());
+            ui.PrintString(x.ToString());
         });
             }
         }
@@ -215,7 +223,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.NumPlate.Equals(numPlate.ToUpper()) && x.Tires.Equals(tires)).ToList().ForEach(x =>
     {
-        Console.WriteLine(x.ToString());
+        ui.PrintString(x.ToString());
     });
             }
         }
@@ -226,7 +234,7 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.Tires.Equals(tires)).ToList().ForEach(x =>
              {
-                 Console.WriteLine(x.ToString());
+                 ui.PrintString(x.ToString());
              });
             }
         }
@@ -250,7 +258,7 @@ namespace GarageSpace
             return false;
         }
 
-        public void PrintNumPlate(string numberPlate)
+        public bool IsDuplicateNumPlate(string numberPlate)
         {
             if (garage != null)
             {
@@ -258,11 +266,12 @@ namespace GarageSpace
                 {
                     if (var != null && var.NumPlate.Equals(numberPlate.ToUpper()))
                     {
-                        Console.WriteLine(var);
-                        break;
+                        return true;
+                     
                     }
                 }
             }
+            return false;
 
         }
     }
