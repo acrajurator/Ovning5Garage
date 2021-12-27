@@ -1,6 +1,6 @@
 ﻿namespace GarageSpace.Vehicle
 {
-    abstract class Vehicle : IVehicle
+    public abstract class Vehicle : IVehicle
     {
         public string NumPlate { get; set; }
         public string Color { get; set; }

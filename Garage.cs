@@ -3,26 +3,12 @@ using System.Collections;
 
 namespace GarageSpace
 {
-    internal class Garage<T> : IEnumerable<T> where T : IVehicle
+    public class Garage<T> : IEnumerable<T> where T : IVehicle
     {
         private IVehicle[] vehicles;
         public Garage(uint size)
         {
             vehicles = new IVehicle[size];
-        }
-
-        public int AvailableSpots()
-        {
-            int x = 0;
-            if (vehicles != null)
-            {
-                foreach (var vehicle in vehicles)
-                {
-                    if (vehicle == null)
-                    x++;
-                }
-            }
-            return x;
         }
 
         public int FirstAvailableSpot()
@@ -40,7 +26,7 @@ namespace GarageSpace
 
         public void AddVehicle(T vehicle, int x)
         {
-            if (x > 1 && vehicles[x - 1] == null)
+            if (x > 0 && vehicles[x - 1] == null)
                  vehicles[x-1] = vehicle;
         }
 

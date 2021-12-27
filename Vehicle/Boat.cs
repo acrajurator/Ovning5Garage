@@ -1,6 +1,6 @@
 ﻿namespace GarageSpace.Vehicle
 {
-    internal class Boat : Vehicle, IVehicle
+    public class Boat : Vehicle, IVehicle
     {
         public Boat(string numPlate, string color, uint tires, uint length) : base(numPlate, color, tires)
         {
