@@ -26,7 +26,7 @@ namespace GarageSpace
 
         public void AddVehicle(T vehicle, int x)
         {
-            if (x > 0 && vehicles[x - 1] == null)
+            if (x > 0 && x <= vehicles.Count() && vehicles[x - 1] == null)
                  vehicles[x-1] = vehicle;
         }
 
@@ -43,7 +43,7 @@ namespace GarageSpace
 
         public bool RemoveVehicle(uint parkingSpot)
         {
-            if (parkingSpot > 0 && parkingSpot < vehicles.Length && vehicles[parkingSpot-1] != null)
+            if (parkingSpot > 0 && parkingSpot <= vehicles.Count() && vehicles[parkingSpot-1] != null)
             {
                 vehicles[parkingSpot - 1] = null;
                 return true;
