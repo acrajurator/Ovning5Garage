@@ -20,36 +20,31 @@ namespace GarageSpace
         public bool AddAirplane(string numPlate, string color, uint tires, uint engines)
         {
 
-            Airplane airplane = new Airplane(numPlate.ToUpper(), color.ToUpper(), tires, engines);
-            if (garage != null && garage.FirstAvailableSpot() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
+            var airplane = new Airplane(numPlate.ToUpper(), color.ToUpper(), tires, engines);
+
+            return AddVehicle(airplane);
+
+
+        }
+
+        private bool AddVehicle(IVehicle vehicle)
+        {
+            if (garage != null && garage.FirstAvailableSpot() > 0 && !IsDuplicateNumPlate(vehicle.NumPlate.ToUpper()))
             {
-
-
                 int x = garage.FirstAvailableSpot();
                 if (x > 0)
                 {
-                    garage.AddVehicle(airplane, x);
+                    garage.AddVehicle(vehicle, x);
                     return true;
                 }
             }
             return false;
         }
+
         public bool AddBus(string numPlate, string color, uint tires, uint seats)
         {
-            Bus bus = new Bus(numPlate.ToUpper(), color.ToUpper(), tires, seats);
-            if (garage != null && garage.FirstAvailableSpot() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
-            {
-
-
-                int x = garage.FirstAvailableSpot();
-                if (x > 0)
-                {
-                    garage.AddVehicle(bus, x);
-                    return true;
-                }
-            }
-
-            return false;
+            var bus = new Bus(numPlate.ToUpper(), color.ToUpper(), tires, seats);
+            return AddVehicle(bus);
         }
 
 
@@ -57,54 +52,24 @@ namespace GarageSpace
         {
 
             Boat boat = new Boat(numPlate.ToUpper(), color.ToUpper(), tires, lenght);
-            if (garage != null && garage.FirstAvailableSpot() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
-            {
+            return AddVehicle(boat);
 
-
-                int x = garage.FirstAvailableSpot();
-                if (x > 0)
-                {
-                    garage.AddVehicle(boat, x);
-                    return true;
-                }
-            }
-            return false;
         }
 
         public bool AddCar(string numPlate, string color, uint tires, string fuel)
         {
-            Car car = new Car(numPlate.ToUpper(), color.ToUpper(), tires, fuel.ToUpper());
-            if (garage != null && garage.FirstAvailableSpot() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
-            {
+            var car = new Car(numPlate.ToUpper(), color.ToUpper(), tires, fuel.ToUpper());
+            return AddVehicle(car);
 
-
-                int x = garage.FirstAvailableSpot();
-                if (x > 0)
-                {
-                    garage.AddVehicle(car, x);
-                    return true;
-                }
-            }
-            return false;
 
         }
 
         public bool AddMotorcycle(string numPlate, string color, uint tires, uint volume)
         {
 
-            Motorcycle motorcycle = new Motorcycle(numPlate.ToUpper(), color.ToUpper(), tires, volume);
+            var motorcycle = new Motorcycle(numPlate.ToUpper(), color.ToUpper(), tires, volume);
+            return AddVehicle(motorcycle);
 
-            if (garage != null && garage.FirstAvailableSpot() > 0 && !IsDuplicateNumPlate(numPlate.ToUpper()))
-            {
-
-                int x = garage.FirstAvailableSpot();
-                if (x > 0)
-                {
-                    garage.AddVehicle(motorcycle, x);
-                    return true;
-                }
-            }
-            return false;
 
         }
 
@@ -222,8 +187,8 @@ namespace GarageSpace
             {
                 garage.Where(x => x != null && x.NumPlate.Equals(numPlate.ToUpper()) && x.Tires.Equals(tires)).ToList().ForEach(x =>
                   {
-                          ui.PrintString(x.ToString());
-                    });
+                      ui.PrintString(x.ToString());
+                  });
             }
         }
 
