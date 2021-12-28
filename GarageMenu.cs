@@ -58,7 +58,9 @@ public class GarageMenu
                 Environment.Exit(0);
                 break;
             default:
-                throw new NotImplementedException();
+                ui.PrintString("Please Pick one of the below!");
+                MainMenu();
+                break;
         }
 
 
@@ -122,7 +124,9 @@ public class GarageMenu
                 MainMenu();
                 break;
             default:
-                throw new NotImplementedException();
+                ui.PrintString("Please Pick one of the below!");
+                PropertyMenu();
+                break;
         }
     }
 
@@ -154,7 +158,9 @@ public class GarageMenu
                 MainMenu();
                 break;
             default:
-                throw new NotImplementedException();
+                ui.PrintString("Please Pick one of the below!");
+                AddRemoveMenu();
+                break;
         }
     }
 
@@ -207,7 +213,11 @@ public class GarageMenu
                 MainMenu();
                 break;
             default:
-                throw new NotImplementedException();
+                ui.PrintString("Please Pick one of the below!");
+                AddVehicle();
+                break;
+
+
         };
         AddRemoveMenu();
     }
@@ -311,7 +321,9 @@ public class GarageMenu
                 MainMenu();
                 break;
             default:
-                throw new NotImplementedException();
+                ui.PrintString("Please Pick one of the below!");
+                PrintSpecificMenu();
+                break;
         }
 
     }
@@ -343,8 +355,11 @@ public class GarageMenu
                 ui.PrintString("Goodbye!");
                 Environment.Exit(0);
                 break;
+
             default:
-                throw new NotImplementedException();
+                ui.PrintString("Please Pick one of the below!");
+                OptionalFillGarage();
+                break;
         }
     }
 

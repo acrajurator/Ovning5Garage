@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace GarageSpace
 {
-    public class Garage<T> : IEnumerable<T> where T : IVehicle
+    public class Garage<T> : IGarage<T>, IEnumerable<T> where T : IVehicle
     {
         private IVehicle[] vehicles;
         public Garage(uint size)

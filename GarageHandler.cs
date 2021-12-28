@@ -4,7 +4,7 @@ namespace GarageSpace
 {
     public class GarageHandler : IHandler
     {
-        Garage<IVehicle>? garage;
+        IGarage<IVehicle>? garage;
         IUI ui;
 
         public GarageHandler(IUI ui)
@@ -252,7 +252,15 @@ namespace GarageSpace
         {
             if (garage != null && parkingSpot > 0)
             {
-                return garage.RemoveVehicle(parkingSpot);
+                try
+                {
+                    return garage.RemoveVehicle(parkingSpot);
+
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+
+                }
             }
             return false;
         }
