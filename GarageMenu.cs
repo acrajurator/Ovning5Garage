@@ -339,13 +339,24 @@ public class GarageMenu
         switch (option)
         {
             case 1:
-                //toDo fill garage;
                 handler.AddAirplane("abc123", "yellow", 3, 4);
                 handler.AddMotorcycle("cde452", "white", 2, 10);
                 handler.AddCar("ret521", "red", 4, "normal");
                 handler.AddCar("bla111", "pink", 4, "special");
                 handler.AddBus("dra333", "yellow", 8, 22);
                 handler.AddBoat("pizza", "red", 0, 10);
+                handler.AddAirplane("dbc123", "yellow", 3, 4);
+                handler.AddMotorcycle("hde452", "white", 3, 12);
+                handler.AddCar("jet521", "red", 4, "normal");
+                handler.AddCar("lla111", "pink", 4, "special");
+                handler.AddBus("yra333", "yellow", 8, 22);
+                handler.AddBoat("pasta", "red", 0, 10);
+                handler.AddAirplane("yij123", "yellow", 3, 4);
+                handler.AddMotorcycle("mrr452", "white", 2, 10);
+                handler.AddCar("ske521", "red", 4, "normal");
+                handler.AddCar("rrt111", "pink", 4, "special");
+                handler.AddBus("pew333", "yellow", 8, 22);
+                handler.AddBoat("pang", "red", 0, 10);
 
                 break;
             case 2:
