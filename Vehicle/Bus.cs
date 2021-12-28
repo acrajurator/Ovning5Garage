@@ -1,6 +1,6 @@
 ﻿namespace GarageSpace.Vehicle
 {
-    public class Bus : Vehicle, IVehicle
+    public class Bus : Vehicle
     {
         public Bus(string numPlate, string color, uint tires, uint seats) : base(numPlate, color, tires)
         {
