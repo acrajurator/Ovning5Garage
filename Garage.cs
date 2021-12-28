@@ -24,10 +24,12 @@ namespace GarageSpace
             return 0;
         }
 
-        public void AddVehicle(T vehicle, int x)
+        public void AddVehicle(T vehicle, int parkingSpot)
         {
-            if (x > 0 && x <= vehicles.Count() && vehicles[x - 1] == null)
-                 vehicles[x-1] = vehicle;
+            if (parkingSpot < 1 || parkingSpot > vehicles.Count())
+                throw new ArgumentOutOfRangeException(nameof(parkingSpot), $"{parkingSpot} is not a parking spot within the garage size");
+            else if (vehicles[parkingSpot - 1] == null)
+                vehicles[parkingSpot - 1] = vehicle;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -43,7 +45,9 @@ namespace GarageSpace
 
         public bool RemoveVehicle(uint parkingSpot)
         {
-            if (parkingSpot > 0 && parkingSpot <= vehicles.Count() && vehicles[parkingSpot-1] != null)
+            if (parkingSpot < 1 || parkingSpot > vehicles.Count())
+                throw new ArgumentOutOfRangeException(nameof(parkingSpot), $"{parkingSpot} is not a parking spot within the garage size");
+            else if (vehicles[parkingSpot-1] != null)
             {
                 vehicles[parkingSpot - 1] = null;
                 return true;
