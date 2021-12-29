@@ -259,7 +259,14 @@ public class GarageMenu
     }
     private void AddVehicle(VehicleType type)
     {
-        string numPlate = Util.AskForString("What number plate?", ui); ;
+        string numPlate = Util.AskForString("What number plate?", ui);
+        if (handler.IsDuplicateNumPlate(numPlate))
+        {
+            ui.PrintString("The nummber plate is already taken!");
+            AddRemoveMenu();
+
+        }
+
         string color = Util.AskForString("What Color?", ui);
         uint tires = Util.AskForUInt("How many tires?", ui);
 
