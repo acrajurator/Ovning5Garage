@@ -5,10 +5,10 @@ namespace GarageSpace
 {
     public class Garage<T> : IGarage<T>, IEnumerable<T> where T : IVehicle
     {
-        private IVehicle[] vehicles;
+        private T[] vehicles;
         public Garage(uint size)
         {
-            vehicles = new IVehicle[size];
+            vehicles = new T[size];
         }
 
         public int FirstAvailableSpot()
@@ -49,7 +49,7 @@ namespace GarageSpace
                 throw new ArgumentOutOfRangeException(nameof(parkingSpot), $"{parkingSpot} is not a parking spot within the garage size");
             else if (vehicles[parkingSpot-1] != null)
             {
-                vehicles[parkingSpot - 1] = null;
+                vehicles[parkingSpot - 1] = default;
                 return true;
 
             }
