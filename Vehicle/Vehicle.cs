@@ -7,8 +7,8 @@
         public uint Tires { get; set; }
         public Vehicle (string numPlate, string color, uint tires)
         {
-            NumPlate = numPlate;    
-            Color = color;  
+            NumPlate = numPlate.ToUpper();    
+            Color = color.ToUpper();  
             Tires = tires;  
         }
         public override string ToString()
